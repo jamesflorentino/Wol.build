@@ -47,6 +47,17 @@ package com.game
 		
 		public function render ( e:Event ) : void
 		{
+			renderBackground ();
+			renderUnits ();
+		}
+		
+		public function renderBackground () : void
+		{
+			
+		}
+		
+		public function renderUnits () : void
+		{
 			var i 		: uint;
 			var entity	: Entity;
 			
@@ -54,6 +65,7 @@ package com.game
 			while ( i-- )
 			{
 				entity	= units[i];
+				
 				canvas.copyPixels 
 				(
 					Sheets.sheets["unit.marine"][0],

@@ -46,6 +46,10 @@ package com.game.display
 		protected var __totalFrames		: int;
 		public function get totalFrames () : int { return __totalFrames; }
 		
+		public function update() : void
+		{
+			
+		}
 		
 	}
 }
