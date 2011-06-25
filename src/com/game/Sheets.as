@@ -6,20 +6,40 @@ package com.game
 	
 	public class Sheets
 	{
-		public static var sheets : Dictionary;
+		private static var __sheets : Dictionary;
+		
 		public static function init () : void
 		{
-			sheets	= new Dictionary;
+			__sheets	= new Dictionary;
+			
+			// create an empty null bitmapdata object
+			var __NULLSHEET		: Vector.<BitmapData> = new Vector.<BitmapData>;
+			__NULLSHEET.push( new BitmapData( 1, 1 ) );
+			__sheets [ 'NULL' ] =  __NULLSHEET;
+		}
+		
+		public static function sheets( sheetname:String ) : Vector.<BitmapData>
+		{
+			var 	v : Vector.<BitmapData>;
+			
+			v = __sheets [sheetname] as Vector.<BitmapData>;
+			
+			if( !v )
+			{
+				v = __sheets [ 'NULL' ] as Vector.<BitmapData>;
+			}
+			
+			return v;
 		}
 		
 		public static function addSheet ( sheetname : String, clip : MovieClip ) : void
 		{
-			if( ! sheets )
+			if( ! __sheets )
 			{
-				sheets	= new Dictionary;
+				init ();
 			}
 			
-			sheets [ sheetname ] 	= createSheet ( clip );
+			__sheets [ sheetname ] 	= createSheet ( clip );
 		}
 
 		private static function createSheet ( clip : MovieClip ) : Vector.<BitmapData>

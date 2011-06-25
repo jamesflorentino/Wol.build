@@ -14,7 +14,8 @@ package com.game.display
 		 * sheet name of the entity
 		 */
 		protected var __sheet	: String;
-		public function get sheet () : String { return __sheet; }
+		public function get sheet () : String 	{ return __sheet; }
+		public function set sheet ( val:String ) : void		{ __sheet = val; } 
 		
 		/**
 		 * the arbitrary offset value for the entity's center point
@@ -37,7 +38,7 @@ package com.game.display
 		/**
 		 * current bitmapdata to display in the Vector array
 		 */
-		protected var __currentFrame	: int;
+		protected var __currentFrame	: int = 1;
 		public function get currentFrame () : int { return __currentFrame; }
 		
 		/**
@@ -45,10 +46,14 @@ package com.game.display
 		 */
 		protected var __totalFrames		: int;
 		public function get totalFrames () : int { return __totalFrames; }
+		public function set totalFrames ( val:int ) : void { __totalFrames = val; }
 		
 		public function update() : void
 		{
-			
+			if(__currentFrame == __totalFrames)
+			{
+				__currentFrame = 1;
+			}
 		}
 		
 	}

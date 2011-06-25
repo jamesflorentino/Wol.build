@@ -1,5 +1,6 @@
 package 
 {
+	import net.hires.debug.Stats;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import main.AbstractLevel;
@@ -22,6 +23,7 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			addChild( new AbstractLevel ( 1024, 768,  30 ) );
+			addChild( new Stats() );
 		}
 		
 	}

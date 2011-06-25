@@ -1,5 +1,6 @@
 package com.game
 {
+	import flash.geom.Point;
 	import com.game.display.Entity;
 	import flash.events.Event;
 	import flash.display.Sprite;
@@ -26,6 +27,13 @@ package com.game
 			
 			background	= new BitmapData(Game.WIDTH, Game.HEIGHT, false, 0xff000000);
 			
+			var __tempspritebg	: Sprite;
+			__tempspritebg		= new Sprite();
+			__tempspritebg.graphics.drawRect(0, 0, 100, 100);
+			__tempspritebg.graphics.beginFill(0x000000);
+			
+			background.draw(__tempspritebg);
+			
 			addChild( canvasBMP );
 			
 		}
@@ -47,13 +55,23 @@ package com.game
 		
 		public function render ( e:Event ) : void
 		{
+			canvas.lock ();
+			
 			renderBackground ();
 			renderUnits ();
+			
+			canvas.unlock ();
 		}
 		
+		private var __pt	: Point = new Point;
 		public function renderBackground () : void
 		{
-			
+			canvas.copyPixels
+			(
+				background,
+				background.rect,
+				__pt
+			);
 		}
 		
 		public function renderUnits () : void
@@ -65,12 +83,15 @@ package com.game
 			while ( i-- )
 			{
 				entity	= units[i];
-				
+				entity.update ();
 				canvas.copyPixels 
 				(
-					Sheets.sheets["unit.marine"][0],
+					Sheets.sheets ( entity.sheet )[entity.currentFrame],
 					entity.rect,
-					entity.position
+					entity.position,
+					null,
+					null,
+					true
 				);
 			}
 		}

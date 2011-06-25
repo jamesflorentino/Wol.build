@@ -1,5 +1,6 @@
 package main
 {
+	import flash.display.MovieClip;
 	import com.game.display.Entity;
 	import com.game.Sheets;
 	import com.game.Engine;
@@ -9,16 +10,14 @@ package main
 		public function AbstractLevel ( __width : Number = 500 , __height : Number = 300 , __fps : Number = 30 )
 		{
 			super ( __width , __height , __fps );
-			
-			Sheets.addSheet( AssetNames.MARINE , new lib_sprite_marine );
+			var m : MovieClip = (new lib_sprite_marine) as MovieClip;
+			Sheets.addSheet( AssetNames.MARINE , m );
 			
 			startRender();
 			
 			/** test stuff **/
-			var entity 		: Entity;
-			entity			= new Entity ();
-			entity.position.y = 100;
-			addEntity ( entity );
+			var entity		: Entity;
+			entity = new Entity ();
 		}
 	}
 }

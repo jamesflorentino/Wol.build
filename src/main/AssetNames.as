@@ -6,5 +6,6 @@ package main
 	public class AssetNames
 	{
 		public static var MARINE : String	= "unit.marine";
+		public static var HEX 	 : String	= "unit.hex";
 	}
 }
