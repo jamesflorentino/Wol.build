@@ -1,15 +1,11 @@
 package com.game.renderer
 {
+	import com.game.core.Entity;
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
 	
-	public class RenderItem
+	public class RenderItem extends Entity
 	{
-		
-		protected var __name 	: String;
-		public function get name () : String { return __name; }
-		
-		
 		/**
 		 * sheet name of the entity
 		 */
