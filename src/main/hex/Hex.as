@@ -1,9 +1,9 @@
 package main.hex
 {
+	import com.game.renderer.RenderItem;
 	import main.AssetNames;
-	import com.game.display.Entity;
 
-	public class Hex extends Entity
+	public class Hex extends RenderItem
 	{
 		public function Hex ()
 		{

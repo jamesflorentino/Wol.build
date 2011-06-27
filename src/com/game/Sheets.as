@@ -18,7 +18,7 @@ package com.game
 			__sheets [ 'NULL' ] =  __NULLSHEET;
 		}
 		
-		public static function sheets( sheetname:String ) : Vector.<BitmapData>
+		public static function getSheet( sheetname:String ) : Vector.<BitmapData>
 		{
 			var 	v : Vector.<BitmapData>;
 			
@@ -34,7 +34,7 @@ package com.game
 		
 		public static function addSheet ( sheetname : String, clip : MovieClip ) : void
 		{
-			if( ! __sheets )
+			if( !__sheets )
 			{
 				init ();
 			}
