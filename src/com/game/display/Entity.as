@@ -34,11 +34,15 @@ package com.game.display
 		 */
 		protected var __position		: Point = new Point;
 		public function get position () : Point { return __position; }
+		public function get x	()	: Number { return __position.x; }
+		public function set x	( val : Number ) : void { __position.x = val; }
+		public function get y	()	: Number { return __position.y; }
+		public function set y	( val : Number ) : void { __position.y = val; }
 		
 		/**
 		 * current bitmapdata to display in the Vector array
 		 */
-		protected var __currentFrame	: int = 1;
+		protected var __currentFrame	: int = 0;
 		public function get currentFrame () : int { return __currentFrame; }
 		
 		/**
@@ -49,8 +53,6 @@ package com.game.display
 		public function set totalFrames ( val:int ) : void { __totalFrames = val; }
 		
 		public function update() : void { }
-		
-		
 		
 	}
 }
