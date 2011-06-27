@@ -52,7 +52,7 @@ package com.game.display
 		public function get totalFrames () : int { return __totalFrames; }
 		public function set totalFrames ( val:int ) : void { __totalFrames = val; }
 		
-		public function update() : void { }
+		public function update() : void { __currentFrame++; if ( __currentFrame == __totalFrames ) __currentFrame = 0; }
 		
 	}
 }
