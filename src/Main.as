@@ -23,10 +23,16 @@ package
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
-			addChild( new AbstractLevel ( 1024, 768,  30 ) );
+			addChild( new AbstractLevel ( 800, 600,  30 ) );
 			addChild( new Stats() );
 			
+			
+			 /**
+			  * ----------------------------
+			  * 		TEMPORARY
+			  * ----------------------------
+			  * 
+			  */
 			var txt:TextField = new TextField();
 			var fmt:TextFormat = new TextFormat;
 			fmt.font = 'Arial';

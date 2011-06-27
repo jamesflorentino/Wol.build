@@ -49,21 +49,21 @@ package main
 			for( i = 0; i < 40; i++ )
 			{
 				item = addUnitBySheet ( 'units',  ovr, AssetNames.OVERWATCH  );
-				item.x = Math.random() * 700;
+				item.x = Math.random() * Game.WIDTH * .7;
 				item.y = 10 + (Math.random() * 500);
 			}
 			
 			for( i = 0; i < 30; i++ )
 			{
 				item = addUnitBySheet ( 'units',  inf, AssetNames.INFILTRATOR );
-				item.x = 100 + (Math.random() * 700);
+				item.x = 100 + (Math.random() * Game.WIDTH * .7 );
 				item.y = 101 + (Math.random() * 500);
 			}
 			
 			for( i = 0; i < 30; i++ )
 			{
 				item = addUnitBySheet ( 'units',  mar, AssetNames.MARINE );
-				item.x = 10 + (Math.random() * 700);
+				item.x = 10 + (Math.random() * Game.WIDTH * .7 );
 				item.y = 100 + (Math.random() * 500);
 			}
 			
