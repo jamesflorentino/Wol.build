@@ -1,9 +1,9 @@
 package main.hex
 {
-	import com.game.renderer.RenderItem;
+	import com.game.renderer.Spritesheet;
 	import main.AssetNames;
 
-	public class Hex extends RenderItem
+	public class Hex extends Spritesheet
 	{
 		public function Hex ()
 		{
