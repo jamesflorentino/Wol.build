@@ -5,10 +5,16 @@ package main
 	 */
 	public class AssetNames
 	{
-		public static var BACKGROUND: String	= "background.main";
-		public static var MARINE 	: String	= "unit.marine";
-		public static var INFILTRATOR : String	= "unit.infiltrator";
-		public static var OVERWATCH : String	= "unit.overwatch";
-		public static var HEX 	 	: String	= "unit.hex";
+		
+		// units
+		public static const BACKGROUND	: String	= "background.main";
+		public static const MARINE 		: String	= "unit.marine";
+		public static const INFILTRATOR : String	= "unit.infiltrator";
+		public static const OVERWATCH 	: String	= "unit.overwatch";
+		
+		// base
+		public static const HEX_BASE 	: String	= "hex.base";
+		
+		
 	}
 }

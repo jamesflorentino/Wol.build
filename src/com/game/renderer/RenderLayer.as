@@ -2,7 +2,7 @@ package com.game.renderer
 {
 	import flash.geom.Point;
 	import flash.filters.BitmapFilter;
-	import com.game.Sheets;
+	import com.game.AssetLibrary;
 	import com.game.core.Entity;
 	import flash.display.BitmapData;
 	/**
@@ -14,27 +14,29 @@ package com.game.renderer
 		private var __bitmapData			: BitmapData;
 		public function get bitmapData () 	: BitmapData { return __bitmapData; }
 		
-		private var __children				: Vector.<Spritesheet>;
-		public function get children ()		: Vector.<Spritesheet> { return __children; }
+		private var __children				: Vector.<DisplayElement>;
+		public function get children ()		: Vector.<DisplayElement> { return __children; }
 		
 		private var __filters				: Vector.<BitmapFilter>;
 		public function get filters () 		: Vector.<BitmapFilter> { return __filters; }
 		public function set filters ( val : Vector.<BitmapFilter> ) : void { __filters = val; }
 		
+		public function get totalItems ()		: Number { return __children.length; }
+		
 		public function RenderLayer ( __width : uint, __height : uint )
 		{
 			__filters		= new Vector.<BitmapFilter>;
 			__bitmapData 	= new BitmapData ( __width, __height, true, 0x00000000 );
-			__children		= new Vector.<Spritesheet>();
+			__children		= new Vector.<DisplayElement>();
 		}
 		
-		public function addSheet ( child : Spritesheet ) : Vector.<Spritesheet>
+		public function addEntity ( child : DisplayElement ) : Vector.<DisplayElement>
 		{
 			__children.push( child );
 			return __children;
 		}
 		
-		private var __currentItem 	: Spritesheet;
+		private var __currentItem 	: DisplayElement;
 		
 		public function render() : void
 		{
@@ -47,15 +49,17 @@ package com.game.renderer
 			{
 				__currentItem	= __children [ i ];
 				__currentItem.update ();
+				/**/
 				__bitmapData.copyPixels 
 				( 
-					Sheets.getSheet ( __currentItem.sheet )[ __currentItem.currentFrame ],
+					AssetLibrary.getSheet ( __currentItem.sheet )[ __currentItem.currentFrame ],
 					__currentItem.rect,
 					__currentItem.position,
 					null,
 					null,
 					true
 				);
+				/**/
 			}
 			renderFilters();
 			__bitmapData.unlock();
