@@ -29,12 +29,23 @@ package com.game.renderer
 		public function set height ( val : Number ) : void { __rect.bottom = val; }
 		public function set width ( val : Number ) : void { __rect.right = val; }
 		
+		protected var __flipped	: Boolean = false;
+		public function get flipped () : Boolean { return __flipped; }
+		public function set flipped ( val : Boolean ) : void 
+		{ 
+			__flipped = val; 
+		}
+		
+		
 		/**
 		 * x,y pos
 		 */
 		protected var __position		: Point = new Point;
 		public function get position () : Point { return __position; }
-		public function get x	()	: Number { return __position.x; }
+		public function get x	()	: Number 
+		{ 
+			return __flipped ? __position.x - width : __position.x; 
+		}
 		public function set x	( val : Number ) : void { __position.x = val; }
 		public function get y	()	: Number { return __position.y; }
 		public function set y	( val : Number ) : void { __position.y = val; }

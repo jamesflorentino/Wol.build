@@ -96,14 +96,14 @@ package com.game
 			__clips [ name ]	= clip;
 		}
 		
-		public static function addSheetByClip ( sheetname : String, clip : MovieClip, scale : Number = 1 ) : void
+		public static function addSheetByClip ( sheetname : String, clip : MovieClip, scale : Number = 1, flip : Boolean = false ) : void
 		{
 			if( !__sheets )
 			{
 				init ();
 			}
 			
-			__sheets [ sheetname ] 	= createSheetByCachedClip ( clip, scale );
+			__sheets [ sheetname ] 	= createSheetByCachedClip ( clip, scale, flip );
 		}
 		
 		public static function addStaticSheet ( sheetname : String, __bitmap : Bitmap ) : void
@@ -130,7 +130,7 @@ package com.game
 			
 		}
 
-		private static function createSheetByCachedClip ( clip : MovieClip, scale : Number ) : Vector.<BitmapData>
+		private static function createSheetByCachedClip ( clip : MovieClip, scale : Number, flip : Boolean ) : Vector.<BitmapData>
 		{
 			var __sheet		: Vector.<BitmapData>;
 			var i			: uint;
@@ -146,10 +146,18 @@ package com.game
 			__frames	= clip.totalFrames + 1;
 			__matrix	= new Matrix;
 			
-			__matrix.scale(scale, scale);
-			
 			__width		= Math.ceil ( __width * scale );
 			__height	= Math.ceil ( __height * scale );
+			
+			if ( flip ) 
+			{
+				__matrix.scale(-scale, scale);
+				__matrix.translate(__width, 0);
+			}
+			else
+			{
+				__matrix.scale(scale, scale);
+			}
 
 			for( i = 1 ; i < __frames; i++ )
 			{

@@ -6,11 +6,15 @@ package main
 	public class AssetNames
 	{
 		
-		// units
+		// static stuff
 		public static const BACKGROUND	: String	= "background.main";
-		public static const MARINE 		: String	= "unit.marine";
-		public static const INFILTRATOR : String	= "unit.infiltrator";
-		public static const OVERWATCH 	: String	= "unit.overwatch";
+		
+		// units
+		public static const MARINE_LEFT 		: String	= "unit.marine.left";
+		public static const MARINE 		: String	= "unit.marine.right";
+		public static const INFILTRATOR : String	= "unit.infiltrator.right";
+		public static const OVERWATCH 	: String	= "unit.overwatch.right";
+		public static const VANQUISHER 	: String	= "unit.vanquisher.right";
 		
 		// base
 		public static const HEX_BASE 	: String	= "hex.base";

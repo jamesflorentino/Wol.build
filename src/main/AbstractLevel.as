@@ -24,17 +24,17 @@ package main
 		{
 			super ( __width , __height , __fps );
 			
-			addLayer('background');
-			addLayer('grid');
-			addLayer('units');
+			addLayer ( 'background' );
+			addLayer ( 'grid' );
+			addLayer ( 'units' );
 			
-			setAssets();
+			setAssets ();
 			
-			generateBackground();
-			generateGrid(8, 5);
-			generateTestUnits(); 
+			generateBackground ();
+			generateGrid ( 8, 11 );
+			//generateTestUnits (); 
 			
-			startRender();
+			startRender ();
 		}
 		
 		public function setAssets () : void
@@ -44,13 +44,14 @@ package main
 			AssetLibrary.addClipAsset ( new lib_sprite_marine as MovieClip, AssetNames.MARINE );
 			AssetLibrary.addClipAsset ( new lib_sprite_overwatch as MovieClip, AssetNames.OVERWATCH );
 			AssetLibrary.addClipAsset ( new lib_sprite_infiltrator, AssetNames.INFILTRATOR );
+			AssetLibrary.addClipAsset ( new lib_sprite_vanquisher, AssetNames.VANQUISHER );
 			AssetLibrary.addBitmapAsset ( new lib_bmp_bg as Bitmap, AssetNames.BACKGROUND ); 
 			AssetLibrary.addBitmapAsset ( new lib_bmp_hexbase as Bitmap, AssetNames.HEX_BASE ); 
 			
 			// sheets
-			AssetLibrary.addSheetByClip ( AssetNames.MARINE , AssetLibrary.getClipAsset( AssetNames.MARINE ), .35 );
-			AssetLibrary.addSheetByClip ( AssetNames.INFILTRATOR , AssetLibrary.getClipAsset( AssetNames.INFILTRATOR ), .35 );
-			AssetLibrary.addSheetByClip ( AssetNames.OVERWATCH , AssetLibrary.getClipAsset( AssetNames.OVERWATCH ), .35 );
+			AssetLibrary.addSheetByClip ( AssetNames.MARINE , AssetLibrary.getClipAsset( AssetNames.MARINE ), .5 );
+			AssetLibrary.addSheetByClip ( AssetNames.INFILTRATOR , AssetLibrary.getClipAsset( AssetNames.INFILTRATOR ), .5 );
+			AssetLibrary.addSheetByClip ( AssetNames.OVERWATCH , AssetLibrary.getClipAsset( AssetNames.OVERWATCH ), .5 );
 			
 			// static
 			AssetLibrary.addStaticSheet ( AssetNames.BACKGROUND , AssetLibrary.getBitmapAsset( AssetNames.BACKGROUND ) );
@@ -58,13 +59,13 @@ package main
 			
 			//
 			
-			var matrix : Array = new Array();
-			matrix = matrix.concat([1, 0, 0, 0, 0]); // red
-            matrix = matrix.concat([0.1, 1, 0, 0, 0]); // green
-            matrix = matrix.concat([0, 0, 1, 0.1, 0]); // blue
-            matrix = matrix.concat([0, 0, 0, 1, 0]); // alpha
+			var matrix : Array = [];
+			matrix = matrix.concat ( [ 1, 		0, 		0, 		0, 		0 ] ); // red
+            matrix = matrix.concat ( [ 0.1, 	1, 		0, 		0, 		0 ] ); // green
+            matrix = matrix.concat ( [ 0, 		0, 		1, 		0.1, 	0 ] ); // blue
+            matrix = matrix.concat ( [ 0, 		0, 		0, 		1, 		0 ] ); // alpha
             
-			getLayer('units').filters.push( new ColorMatrixFilter(matrix));
+			getLayer ( 'units' ).filters.push ( new ColorMatrixFilter( matrix ) );
 		}
 
 		public function generateGrid ( columns : int, rows : int ) : void
@@ -76,7 +77,6 @@ package main
 			
 			layer		= getLayer('grid') as RenderLayer;
 			
-			trace('layer');
 			for( y = 0 ; y < rows; y++ )
 			{
 				for( x = 0 ; x < columns; x++ )
@@ -96,7 +96,12 @@ package main
 		
 		private function generateBackground () : void
 		{
-			addItem ( 'background' , AssetNames.BACKGROUND );
+			var item		: DisplayElement;
+			item			= addItem ( 'background' , AssetNames.BACKGROUND );
+			item			= addItem( 'units', AssetNames.OVERWATCH );
+			//item.flipped	= true;
+			item.x			= 68 * ( item.flipped ? 1 : -1 ); //offset
+			item.y			= 100;
 		}
 		
 		public function generateTestUnits () : void

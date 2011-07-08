@@ -1,5 +1,6 @@
 package com.game.renderer
 {
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.filters.BitmapFilter;
 	import com.game.AssetLibrary;
@@ -36,7 +37,8 @@ package com.game.renderer
 			return __children;
 		}
 		
-		private var __currentItem 	: DisplayElement;
+		private var __child 	: DisplayElement;
+		private var __mtx			: Matrix = new Matrix();
 		
 		public function render() : void
 		{
@@ -47,19 +49,28 @@ package com.game.renderer
 			
 			for( i = 0 ; i < __children.length; i++ )
 			{
-				__currentItem	= __children [ i ];
-				__currentItem.update ();
-				/**/
-				__bitmapData.copyPixels 
-				( 
-					AssetLibrary.getSheet ( __currentItem.sheet )[ __currentItem.currentFrame ],
-					__currentItem.rect,
-					__currentItem.position,
-					null,
-					null,
-					true
-				);
-				/**/
+				__child	= __children [ i ];
+				__child.update ();
+				
+				if ( __child.flipped )
+				{
+					__mtx = new Matrix;
+					__mtx.scale(-1, 1);
+					__mtx.translate(__child.x + __child.width, __child.y);
+					__bitmapData.draw(AssetLibrary.getSheet ( __child.sheet )[ __child.currentFrame ], __mtx);
+				} 
+				else
+				{
+					__bitmapData.copyPixels 
+					( 
+						AssetLibrary.getSheet ( __child.sheet )[ __child.currentFrame ],
+						__child.rect,
+						__child.position,
+						null,
+						null,
+						true
+					);
+				}
 			}
 			renderFilters();
 			__bitmapData.unlock();
