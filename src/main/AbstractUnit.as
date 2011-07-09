@@ -1,21 +1,16 @@
 package main
 {
-	import com.game.system.stats.StatNames;
-	import com.game.system.stats.Stat;
-	import com.game.system.stats.Stats;
 	import com.game.renderer.DisplayElement;
+
 	/**
 	 * @author James Florentino | jamesflorentino.com | j@jamesflorentino.com
 	 */
 	public class AbstractUnit extends DisplayElement
 	{
 		
-		private var stats		: Stats;
-		
-		public function AbstractUnit ()
+		override public function get x () : Number
 		{
-			stats = new Stats();
-			stats.addStat( new Stat( StatNames.HEALTH, 0, 100) );
+			return super.x + ( __offset.x * ( this.flipped ? -1 : 1 ) );
 		}
 	}
 }

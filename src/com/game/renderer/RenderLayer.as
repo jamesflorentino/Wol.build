@@ -38,11 +38,12 @@ package com.game.renderer
 		}
 		
 		private var __child 	: DisplayElement;
-		private var __mtx			: Matrix = new Matrix();
+		private var i 			: uint;
+		private var matrix		: Matrix;
 		
 		public function render() : void
 		{
-			var i : uint;
+			
 			
 			__bitmapData.fillRect ( __bitmapData.rect, 0x00000000 );
 			__bitmapData.lock();
@@ -54,16 +55,16 @@ package com.game.renderer
 				
 				if ( __child.flipped )
 				{
-					__mtx = new Matrix;
-					__mtx.scale(-1, 1);
-					__mtx.translate(__child.x + __child.width, __child.y);
-					__bitmapData.draw(AssetLibrary.getSheet ( __child.sheet )[ __child.currentFrame ], __mtx);
+					matrix	= new Matrix;
+					matrix.scale (-1, 1);
+					matrix.translate(__child.x, __child.y);
+					__bitmapData.draw( AssetLibrary.getSheet ( __child.sheetname )[ __child.currentFrame ], matrix );
 				} 
 				else
 				{
 					__bitmapData.copyPixels 
 					( 
-						AssetLibrary.getSheet ( __child.sheet )[ __child.currentFrame ],
+						AssetLibrary.getSheet ( __child.sheetname )[ __child.currentFrame ],
 						__child.rect,
 						__child.position,
 						null,

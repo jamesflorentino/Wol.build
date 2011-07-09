@@ -10,14 +10,23 @@ package com.game.renderer
 		 * sheet name of the entity
 		 */
 		protected var __sheet	: String;
-		public function get sheet () : String 	{ return __sheet; }
-		public function set sheet ( val:String ) : void		{ __sheet = val; } 
+		public function get sheetname () : String 	{ return __sheet; }
+		public function set sheetname ( val:String ) : void		{ __sheet = val; } 
 		
 		/**
 		 * the arbitrary offset value for the entity's center point
 		 */
 		protected var __offset	: Point = new Point;
-		public function get offset () : Point { return __offset; }
+		public function set offsetX ( val : Number ) : void
+		{
+			__offset.x	= val;
+			updatePos();
+		}
+		public function set offsetY ( val : Number ) : void
+		{
+			__offset.y	= val;
+			updatePos();
+		}
 		
 		/**
 		 * bounding box of the entity
@@ -33,22 +42,39 @@ package com.game.renderer
 		public function get flipped () : Boolean { return __flipped; }
 		public function set flipped ( val : Boolean ) : void 
 		{ 
-			__flipped = val; 
+			__flipped = val;
 		}
 		
 		
 		/**
 		 * x,y pos
 		 */
-		protected var __position		: Point = new Point;
+		protected var __point			: Point = new Point; // original referenced position
+		protected var __position		: Point = new Point; // calcualted position
+		
 		public function get position () : Point { return __position; }
-		public function get x	()	: Number 
-		{ 
-			return __flipped ? __position.x - width : __position.x; 
+		public function get x		()	: Number 
+		{
+			return __point.x;
 		}
-		public function set x	( val : Number ) : void { __position.x = val; }
-		public function get y	()	: Number { return __position.y; }
-		public function set y	( val : Number ) : void { __position.y = val; }
+		public function set x	( val : Number ) : void 
+		{
+			__point.x 		= val;
+			updatePos();
+		}
+		public function get y	() : Number { return __point.y; }
+		public function set y	( val : Number ) : void 
+		{ 
+			__point.y 		= val;
+			updatePos(); 
+		}
+		
+		
+		private function updatePos () : void
+		{
+			__position.x	= __point.x + __offset.x;
+			__position.y	= __point.y + __offset.y;
+		}
 		
 		/**
 		 * current bitmapdata to display in the Vector array
@@ -64,7 +90,15 @@ package com.game.renderer
 		public function get totalFrames () : int { return __totalFrames; }
 		public function set totalFrames ( val:int ) : void { __totalFrames = val; }
 		
-		public function update() : void { __currentFrame++; if ( __currentFrame >= __totalFrames ) __currentFrame = 0; }
+		public function update() : void 
+		{ 
+			__currentFrame++; 
+			if ( __currentFrame >= __totalFrames ) 
+			{
+				__currentFrame = 0;
+			}
+		}
+		
 		
 	}
 }

@@ -30,7 +30,7 @@ package main.hex
 		public function Hex ()
 		{
 			super();
-			this.sheet	= AssetNames.HEX_BASE;
+			this.sheetname	= AssetNames.HEX_BASE;
 		}
 		
 		private function updatePos () : void

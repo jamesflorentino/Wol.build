@@ -1,5 +1,6 @@
 package main
 {
+	import main.utils.GetUnitType;
 	import main.hex.Hex;
 	import flash.filters.ColorMatrixFilter;
 	import flash.display.Bitmap;
@@ -32,6 +33,7 @@ package main
 			
 			generateBackground ();
 			generateGrid ( 8, 11 );
+			generateTestUnit();
 			//generateTestUnits (); 
 			
 			startRender ();
@@ -51,7 +53,7 @@ package main
 			// sheets
 			AssetLibrary.addSheetByClip ( AssetNames.MARINE , AssetLibrary.getClipAsset( AssetNames.MARINE ), .5 );
 			AssetLibrary.addSheetByClip ( AssetNames.INFILTRATOR , AssetLibrary.getClipAsset( AssetNames.INFILTRATOR ), .5 );
-			AssetLibrary.addSheetByClip ( AssetNames.OVERWATCH , AssetLibrary.getClipAsset( AssetNames.OVERWATCH ), .5 );
+			AssetLibrary.addSheetByClip ( AssetNames.OVERWATCH , AssetLibrary.getClipAsset( AssetNames.OVERWATCH ), .45 );
 			
 			// static
 			AssetLibrary.addStaticSheet ( AssetNames.BACKGROUND , AssetLibrary.getBitmapAsset( AssetNames.BACKGROUND ) );
@@ -82,13 +84,13 @@ package main
 				for( x = 0 ; x < columns; x++ )
 				{
 					hex			= new Hex;
-					hex.sheet	= AssetNames.HEX_BASE;
+					hex.sheetname	= AssetNames.HEX_BASE;
 					hex.width	= AssetLibrary.getBitmapAsset( AssetNames.HEX_BASE ).width;
 					hex.height	= AssetLibrary.getBitmapAsset( AssetNames.HEX_BASE ).height;
 					hex.cellX	= x;
 					hex.cellY	= y;
 					layer.addEntity ( hex );
-					Control.grid[ hex.name ] = hex;
+					Controller.grid[ hex.name ] = hex;
 				}
 			}
 			
@@ -98,10 +100,16 @@ package main
 		{
 			var item		: DisplayElement;
 			item			= addItem ( 'background' , AssetNames.BACKGROUND );
-			item			= addItem( 'units', AssetNames.OVERWATCH );
-			//item.flipped	= true;
-			item.x			= 68 * ( item.flipped ? 1 : -1 ); //offset
-			item.y			= 100;
+		}
+		
+		private function generateTestUnit () : void
+		{
+			
+			var unit		: AbstractUnit;
+			unit			= GetUnitType.name ( AssetNames.OVERWATCH );
+			unit.x			= Controller.getHexgrid( 'h_1_1' ).x + Hex.OFFSETX;
+			unit.y			= Controller.getHexgrid( 'h_1_1' ).y + Hex.OFFSETY;
+			getLayer( 'units' ).addEntity( unit );
 		}
 		
 		public function generateTestUnits () : void
@@ -142,7 +150,7 @@ package main
 			item.width			= AssetLibrary.getSheet( sheetname )[0].width;
 			item.height 		= AssetLibrary.getSheet( sheetname )[0].height;
 			item.totalFrames	= AssetLibrary.getSheet( sheetname ).length;
-			item.sheet 			= sheetname;
+			item.sheetname 			= sheetname;
 			
 			getLayer( layername ).addEntity( item );
 			return item;
