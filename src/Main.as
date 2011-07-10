@@ -24,7 +24,7 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			addChild( new AbstractLevel ( 800, 700,  30 ) );
-			//addChild( new Stats() );
+			addChild( new Stats() );
 			
 			
 			 /**

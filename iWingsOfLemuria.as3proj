@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="bin\iWingsOfLemuria.swf" />
     <movie fps="30" />
-    <movie width="1024" />
-    <movie height="768" />
+    <movie width="800" />
+    <movie height="700" />
     <movie version="10" />
     <movie background="#FFFFFF" />
   </output>
@@ -48,6 +48,10 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="libs\marines.swc" />
+    <element path="libs\infiltrator.swc" />
+    <element path="libs\overwatch.swc" />
+    <element path="libs\vanguard.swc" />
+    <element path="libs\vanquisher.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

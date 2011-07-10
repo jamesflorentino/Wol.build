@@ -1,6 +1,7 @@
 package main
 {
 	import com.game.renderer.DisplayElement;
+	import main.hex.Hex;
 
 	/**
 	 * @author James Florentino | jamesflorentino.com | j@jamesflorentino.com
@@ -8,9 +9,9 @@ package main
 	public class AbstractUnit extends DisplayElement
 	{
 		
-		override public function get x () : Number
+		public function gotoHex ( hex : Hex ) : void
 		{
-			return super.x + ( __offset.x * ( this.flipped ? -1 : 1 ) );
+			
 		}
 	}
 }
