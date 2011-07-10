@@ -107,8 +107,14 @@ package main
 			
 			var unit		: AbstractUnit;
 			unit			= GetUnitType.name ( AssetNames.OVERWATCH );
-			unit.x			= Controller.getHexgrid( 'h_1_1' ).x + Hex.OFFSETX;
-			unit.y			= Controller.getHexgrid( 'h_1_1' ).y + Hex.OFFSETY;
+			unit.x			= Controller.getHexgrid( 3,1 ).centerX;
+			unit.y			= Controller.getHexgrid( 3,1 ).centerY;
+			getLayer( 'units' ).addEntity( unit );
+			
+			
+			unit			= GetUnitType.name ( AssetNames.MARINE );
+			unit.x			= Controller.getHexgrid( 3,2 ).centerX;
+			unit.y			= Controller.getHexgrid( 3,2 ).centerY;
 			getLayer( 'units' ).addEntity( unit );
 		}
 		

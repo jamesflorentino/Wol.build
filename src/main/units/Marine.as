@@ -7,13 +7,13 @@ package main.units
 	/**
 	 * @author James Florentino | jamesflorentino.com | j@jamesflorentino.com
 	 */
-	public class Overwatch extends AbstractUnit
+	public class Marine extends AbstractUnit
 	{
-		public function Overwatch()
+		public function Marine ()
 		{
-			this.sheetname		= AssetNames.OVERWATCH;
-			this.offsetX 		= -65;
-			this.offsetY		= -95;
+			this.sheetname		= AssetNames.MARINE;
+			this.offsetX 		= -30;
+			this.offsetY		= -80;
 			this.width			= AssetLibrary.getSheet( this.sheetname )[0].width;
 			this.height			= AssetLibrary.getSheet( this.sheetname )[0].height;
 			this.totalFrames	= AssetLibrary.getSheet( this.sheetname ).length;

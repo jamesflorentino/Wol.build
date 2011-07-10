@@ -22,9 +22,9 @@ package main
 			return __grid;
 		}
 		
-		public static function getHexgrid ( hexname : String ) : Hex
+		public static function getHexgrid ( cellX : Number, cellY : Number ) : Hex
 		{
-			return grid[hexname] as Hex;
+			return grid[ String('h_x_y').replace('x', cellX).replace('y', cellY) ] as Hex;
 		}
 	}
 }

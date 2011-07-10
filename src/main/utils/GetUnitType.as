@@ -1,5 +1,6 @@
 package main.utils
 {
+	import main.units.Marine;
 	import main.units.Overwatch;
 	import main.AssetNames;
 	import main.AbstractUnit;
@@ -18,7 +19,7 @@ package main.utils
 					break;
 				
 				case AssetNames.MARINE :
-					return new Overwatch;
+					return new Marine;
 					break;	
 					
 				default:
