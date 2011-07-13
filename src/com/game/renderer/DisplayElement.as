@@ -91,12 +91,7 @@ package com.game.renderer
 		public function set totalFrames ( val:int ) : void { __totalFrames = val; }
 		
 		public function update() : void 
-		{ 
-			__currentFrame++; 
-			if ( __currentFrame >= __totalFrames ) 
-			{
-				__currentFrame = 0;
-			}
+		{
 		}
 		
 		

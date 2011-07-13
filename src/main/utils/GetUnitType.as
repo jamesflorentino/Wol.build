@@ -20,7 +20,11 @@ package main.utils
 				
 				case AssetNames.MARINE :
 					return new Marine;
-					break;	
+					break;
+					
+				case AssetNames.INFILTRATOR :
+					return new Marine;
+					break;
 					
 				default:
 					throw new Error( String('no unit type `{name}`found').replace('{name}', __name ) );

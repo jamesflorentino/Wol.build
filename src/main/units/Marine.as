@@ -1,5 +1,6 @@
 package main.units
 {
+	import main.utils.FrameAnimation;
 	import com.game.AssetLibrary;
 	import main.AssetNames;
 	import main.AbstractUnit;
@@ -17,6 +18,46 @@ package main.units
 			this.width			= AssetLibrary.getSheet( this.sheetname )[0].width;
 			this.height			= AssetLibrary.getSheet( this.sheetname )[0].height;
 			this.totalFrames	= AssetLibrary.getSheet( this.sheetname ).length;
+			
+			addFrameAnimation( new FrameAnimation( 'onMoveStart', 1, 7 ) );
+			addFrameAnimation( new FrameAnimation( 'onMove', 8, 26, true ) );
+			addFrameAnimation( new FrameAnimation( 'onMoveEnd', 27, 37 ) );
+			onMoveStart();
 		}
+		
+		override protected function onMoveStart () : void
+		{
+			super.onMoveStart ();
+			setFrameAnimation('onMoveStart');
+		}
+		
+		override protected function onMoveEnd () : void
+		{
+			super.onMoveEnd ();
+			setFrameAnimation('onMoveEnd');
+		}
+		/**/
+		override protected function onAnimationEnd () : void
+		{
+			super.onAnimationEnd ();
+			switch( __currentFrameAnimation.name )
+			{
+				case 'onMoveStart' :
+					
+					setFrameAnimation('onMove');
+					
+					break;
+					
+				case 'onMoveEnd'	:
+					
+					setFrameAnimation( null );
+					
+					break;
+					
+				default:
+					
+			}
+		}
+		/**/		
 	}
 }

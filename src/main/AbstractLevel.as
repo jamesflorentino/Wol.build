@@ -33,8 +33,8 @@ package main
 			
 			generateBackground ();
 			generateGrid ( 8, 11 );
+			generateTestUnits (); 
 			generateTestUnit();
-			//generateTestUnits (); 
 			
 			startRender ();
 		}
@@ -102,49 +102,51 @@ package main
 			item			= addItem ( 'background' , AssetNames.BACKGROUND );
 		}
 		
+		public static var TEMPUNIT : AbstractUnit;
+		
 		private function generateTestUnit () : void
 		{
 			
 			var unit		: AbstractUnit;
+			/**
 			unit			= GetUnitType.name ( AssetNames.OVERWATCH );
-			unit.x			= Controller.getHexgrid( 3,1 ).centerX;
-			unit.y			= Controller.getHexgrid( 3,1 ).centerY;
+			//unit.x			= Controller.getHexgrid( 3,1 ).centerX;
+			//unit.y			= Controller.getHexgrid( 3,1 ).centerY;
+			unit.gotoHex(Controller.getHexgrid( 3,1 ));
 			getLayer( 'units' ).addEntity( unit );
+			/**/
 			
-			
+			/**/
 			unit			= GetUnitType.name ( AssetNames.MARINE );
-			unit.x			= Controller.getHexgrid( 3,2 ).centerX;
-			unit.y			= Controller.getHexgrid( 3,2 ).centerY;
+			unit.gotoHex(Controller.getHexgrid( 4,2 ));
 			getLayer( 'units' ).addEntity( unit );
+			AbstractLevel.TEMPUNIT = unit;
+			/**/
+			
+			
 		}
 		
 		public function generateTestUnits () : void
 		{
 			var i 		: uint;
-			var item	: DisplayElement;
+			var unit	: AbstractUnit;
 			
 			for( i = 0; i < 40; i++ )
 			{
-				item = addItem ( 'units', AssetNames.OVERWATCH  );
-				item.x = Math.random() * Game.WIDTH * .7;
-				item.y = 10 + (Math.random() * 500);
-				item.currentFrame = Math.round(Math.random() * item.totalFrames);
+				unit = GetUnitType.name ( AssetNames.OVERWATCH );
+				unit.x = Math.random() * Game.WIDTH * .7;
+				unit.y = 10 + (Math.random() * 500);
+				unit.currentFrame = Math.round(Math.random() * unit.totalFrames);
+				getLayer( 'units' ).addEntity( unit );
 			}
 			
 			for( i = 0; i < 30; i++ )
 			{
-				item = addItem ( 'units', AssetNames.INFILTRATOR );
-				item.x = 100 + (Math.random() * Game.WIDTH * .7 );
-				item.y = 101 + (Math.random() * 500);
-				item.currentFrame = Math.round(Math.random() * item.totalFrames);
-			}
-			
-			for( i = 0; i < 30; i++ )
-			{
-				item = addItem ( 'units', AssetNames.MARINE );
-				item.x = 10 + (Math.random() * Game.WIDTH * .7 );
-				item.y = 100 + (Math.random() * 500);
-				item.currentFrame = Math.round(Math.random() * item.totalFrames);
+				unit = GetUnitType.name( AssetNames.INFILTRATOR );
+				unit.x = 100 + (Math.random() * Game.WIDTH * .7 );
+				unit.y = 101 + (Math.random() * 500);
+				unit.currentFrame = Math.round(Math.random() * unit.totalFrames);
+				getLayer( 'units' ).addEntity( unit );
 			}
 		}
 

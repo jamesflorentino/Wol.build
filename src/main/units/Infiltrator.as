@@ -1,5 +1,6 @@
 package main.units 
 {
+	import com.game.AssetLibrary;
 	import main.AbstractUnit;
 	import main.AssetNames;
 	

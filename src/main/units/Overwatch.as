@@ -1,5 +1,6 @@
 package main.units
 {
+	import main.utils.FrameAnimation;
 	import com.game.AssetLibrary;
 	import main.AssetNames;
 	import main.AbstractUnit;
@@ -17,6 +18,9 @@ package main.units
 			this.width			= AssetLibrary.getSheet( this.sheetname )[0].width;
 			this.height			= AssetLibrary.getSheet( this.sheetname )[0].height;
 			this.totalFrames	= AssetLibrary.getSheet( this.sheetname ).length;
+			
+			addFrameAnimation( new FrameAnimation( 'onMoveStart', 0, 100, true ) );
+			setFrameAnimation('onMoveStart');
 		}
 	}
 }
