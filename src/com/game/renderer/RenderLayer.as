@@ -53,11 +53,12 @@ package com.game.renderer
 				__child	= __children [ i ];
 				__child.update ();
 				
-				if ( __child.flipped )
+				//if ( __child.flipped )
+				if ( 1 > 2 )
 				{
 					matrix	= new Matrix;
 					matrix.scale (-1, 1);
-					matrix.translate(__child.x, __child.y);
+					matrix.translate(__child.x + __child.width, __child.y);
 					__bitmapData.draw( AssetLibrary.getSheet ( __child.sheetname )[ __child.currentFrame ], matrix );
 				} 
 				else

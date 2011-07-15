@@ -55,14 +55,17 @@ package com.game.renderer
 		public function get position () : Point { return __position; }
 		public function get x		()	: Number 
 		{
-			return __point.x;
+			return __point.x + __offset.x + ( __flipped ? - (__offset.x * 2) - width : 0 );
 		}
 		public function set x	( val : Number ) : void 
 		{
 			__point.x 		= val;
 			updatePos();
 		}
-		public function get y	() : Number { return __point.y; }
+		public function get y	() : Number 
+		{ 
+			return __point.y + __offset.y; 
+		}
 		public function set y	( val : Number ) : void 
 		{ 
 			__point.y 		= val;
@@ -72,7 +75,7 @@ package com.game.renderer
 		
 		private function updatePos () : void
 		{
-			__position.x	= __point.x + __offset.x;
+			__position.x	= __point.x + __offset.x;	
 			__position.y	= __point.y + __offset.y;
 		}
 		

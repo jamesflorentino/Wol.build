@@ -96,14 +96,14 @@ package com.game
 			__clips [ name ]	= clip;
 		}
 		
-		public static function addSheetByClip ( sheetname : String, clip : MovieClip, scale : Number = 1, flip : Boolean = false ) : void
+		public static function addSheetByClip ( sheetname : String, clip : MovieClip, scale : Number = 1, copyFlippedSide : Boolean = false ) : void
 		{
 			if( !__sheets )
 			{
 				init ();
 			}
 			
-			__sheets [ sheetname ] 	= createSheetByCachedClip ( clip, scale, flip );
+			__sheets [ sheetname ] 	= createSheetByCachedClip ( clip, scale, copyFlippedSide );
 		}
 		
 		public static function addStaticSheet ( sheetname : String, __bitmap : Bitmap ) : void
@@ -130,7 +130,7 @@ package com.game
 			
 		}
 
-		private static function createSheetByCachedClip ( clip : MovieClip, scale : Number, flip : Boolean ) : Vector.<BitmapData>
+		private static function createSheetByCachedClip ( clip : MovieClip, scale : Number, copyFlippedSide : Boolean ) : Vector.<BitmapData>
 		{
 			var __sheet		: Vector.<BitmapData>;
 			var i			: uint;
@@ -148,16 +148,8 @@ package com.game
 			
 			__width		= Math.ceil ( __width * scale );
 			__height	= Math.ceil ( __height * scale );
-			
-			if ( flip ) 
-			{
-				__matrix.scale(-scale, scale);
-				__matrix.translate(__width, 0);
-			}
-			else
-			{
-				__matrix.scale(scale, scale);
-			}
+
+			__matrix.scale(scale, scale);
 
 			for( i = 1 ; i < __frames; i++ )
 			{
@@ -165,6 +157,21 @@ package com.game
 				bmd = new BitmapData ( __width , __height , true , 0x00000000 );
 				bmd.draw ( clip, __matrix, null, null, null, false );
 				__sheet.push( bmd );
+			}
+			
+			if ( copyFlippedSide )
+			{
+				__matrix	= new Matrix;
+				__matrix.scale(-scale, scale);
+				__matrix.translate(__width, 0);
+				
+				for( i = 1 ; i < __frames; i++ )
+				{
+					clip.gotoAndStop ( i );
+					bmd = new BitmapData ( __width , __height , true , 0x00000000 );
+					bmd.draw ( clip, __matrix, null, null, null, false );
+					__sheet.push( bmd );
+				}		
 			}
 			
 			bmd	= null;

@@ -27,8 +27,14 @@ package main.hex
 			updatePos (); 
 		}
 		
-		public function get centerX ()	: int	{ return x + (Hex.WIDTH * .5); }
-		public function get centerY ()	: int	{ return y + (Hex.HEIGHT * .5); }
+		public function get centerX ()	: int	
+		{ 
+			return x + (Hex.WIDTH * .5); 
+		}
+		public function get centerY ()	: int	
+		{ 
+			return y + (Hex.HEIGHT * .5); 
+		}
 		
 		public function Hex ()
 		{

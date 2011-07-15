@@ -22,5 +22,7 @@ package main.units
 			addFrameAnimation( new FrameAnimation( 'onMoveStart', 0, 100, true ) );
 			setFrameAnimation('onMoveStart');
 		}
+		
+		
 	}
 }

@@ -1,5 +1,7 @@
 package main
 {
+	import flash.events.MouseEvent;
+	import flash.events.Event;
 	import main.utils.GetUnitType;
 	import main.hex.Hex;
 	import flash.filters.ColorMatrixFilter;
@@ -24,6 +26,13 @@ package main
 		public function AbstractLevel ( __width : Number = 500 , __height : Number = 300 , __fps : Number = 30 )
 		{
 			super ( __width , __height , __fps );
+			addEventListener(Event.ADDED_TO_STAGE, addedToStage );
+		}
+
+		private function addedToStage ( event : Event ) : void
+		{
+			Game.STAGE	= stage;
+			Game.STAGE.addEventListener(MouseEvent.CLICK, test );
 			
 			addLayer ( 'background' );
 			addLayer ( 'grid' );
@@ -33,10 +42,16 @@ package main
 			
 			generateBackground ();
 			generateGrid ( 8, 11 );
-			generateTestUnits (); 
+			//generateTestUnits (); 
 			generateTestUnit();
 			
 			startRender ();
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStage );
+		}
+
+		private function test ( event : MouseEvent ) : void
+		{
+			TEMPUNIT.moveToHex(Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + 1));
 		}
 		
 		public function setAssets () : void
@@ -44,20 +59,18 @@ package main
 			
 			// clips
 			AssetLibrary.addClipAsset ( new lib_sprite_marine as MovieClip, AssetNames.MARINE );
-			AssetLibrary.addClipAsset ( new lib_sprite_overwatch as MovieClip, AssetNames.OVERWATCH );
-			AssetLibrary.addClipAsset ( new lib_sprite_infiltrator, AssetNames.INFILTRATOR );
-			AssetLibrary.addClipAsset ( new lib_sprite_vanquisher, AssetNames.VANQUISHER );
-			AssetLibrary.addBitmapAsset ( new lib_bmp_bg as Bitmap, AssetNames.BACKGROUND ); 
-			AssetLibrary.addBitmapAsset ( new lib_bmp_hexbase as Bitmap, AssetNames.HEX_BASE ); 
+			AssetLibrary.addSheetByClip ( AssetNames.MARINE , AssetLibrary.getClipAsset( AssetNames.MARINE ), .5, true );
 			
-			// sheets
-			AssetLibrary.addSheetByClip ( AssetNames.MARINE , AssetLibrary.getClipAsset( AssetNames.MARINE ), .5 );
-			AssetLibrary.addSheetByClip ( AssetNames.INFILTRATOR , AssetLibrary.getClipAsset( AssetNames.INFILTRATOR ), .5 );
-			AssetLibrary.addSheetByClip ( AssetNames.OVERWATCH , AssetLibrary.getClipAsset( AssetNames.OVERWATCH ), .45 );
 			
-			// static
+			AssetLibrary.addBitmapAsset ( new lib_bmp_bg as Bitmap, AssetNames.BACKGROUND );
 			AssetLibrary.addStaticSheet ( AssetNames.BACKGROUND , AssetLibrary.getBitmapAsset( AssetNames.BACKGROUND ) );
+			
+			 
+			AssetLibrary.addBitmapAsset ( new lib_bmp_hexbase as Bitmap, AssetNames.HEX_BASE ); 
 			AssetLibrary.addStaticSheet ( AssetNames.HEX_BASE, AssetLibrary.getBitmapAsset( AssetNames.HEX_BASE ) );
+			// static
+			
+			
 			
 			//
 			
@@ -118,11 +131,18 @@ package main
 			
 			/**/
 			unit			= GetUnitType.name ( AssetNames.MARINE );
-			unit.gotoHex(Controller.getHexgrid( 4,2 ));
+			unit.moveToHex(Controller.getHexgrid( 2, 2 ));
+			unit.flipped = true;
+			getLayer( 'units' ).addEntity( unit );
+			AbstractLevel.TEMPUNIT = unit;
+			/**
+			
+			unit			= GetUnitType.name ( AssetNames.MARINE );
+			unit.gotoHex(Controller.getHexgrid( 2, 0 ));
+			unit.flipped = true;
 			getLayer( 'units' ).addEntity( unit );
 			AbstractLevel.TEMPUNIT = unit;
 			/**/
-			
 			
 		}
 		
@@ -136,6 +156,7 @@ package main
 				unit = GetUnitType.name ( AssetNames.OVERWATCH );
 				unit.x = Math.random() * Game.WIDTH * .7;
 				unit.y = 10 + (Math.random() * 500);
+				unit.flipped = true;
 				unit.currentFrame = Math.round(Math.random() * unit.totalFrames);
 				getLayer( 'units' ).addEntity( unit );
 			}
@@ -145,6 +166,7 @@ package main
 				unit = GetUnitType.name( AssetNames.INFILTRATOR );
 				unit.x = 100 + (Math.random() * Game.WIDTH * .7 );
 				unit.y = 101 + (Math.random() * 500);
+				unit.flipped = true;
 				unit.currentFrame = Math.round(Math.random() * unit.totalFrames);
 				getLayer( 'units' ).addEntity( unit );
 			}

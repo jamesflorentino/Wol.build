@@ -13,8 +13,8 @@ package main.utils
 		public function FrameAnimation( __label:String , __start : int , __end : int, __loop : Boolean = false )
 		{
 			name	= __label; 
-			start	= __start;
-			end		= __end;
+			start	= __start - 1;
+			end		= __end - 1;
 			loop	= __loop;		
 		}
 		

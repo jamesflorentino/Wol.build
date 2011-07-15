@@ -1,7 +1,5 @@
 package 
 {
-	import main.Controller;
-	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
 	import flash.text.TextField;
 	import net.hires.debug.Stats;
@@ -25,10 +23,15 @@ package
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			build();
+			
+		}
+		
+		private function build () : void
+		{
 			addChild( new AbstractLevel ( 800, 700,  30 ) );
 			addChild( new Stats() );
 			
-			stage.addEventListener(MouseEvent.CLICK, randomHex);
 			
 			
 			 /**
@@ -62,15 +65,6 @@ package
 			txt.y = 714;
 			addChild(txt);
 		}
-
-		private function randomHex ( event : MouseEvent ) : void
-		{
-			var CELLX : Number	= AbstractLevel.TEMPUNIT.hex.cellX;
-			var CELLY : Number	= AbstractLevel.TEMPUNIT.hex.cellY + 1;
-			
-			AbstractLevel.TEMPUNIT.gotoHex ( Controller.getHexgrid ( CELLX , CELLY ) );
-		}
-		
 	}
 	
 }

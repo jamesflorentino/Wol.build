@@ -12,6 +12,7 @@ package main.units
 	{
 		public function Marine ()
 		{
+			this.walkSpeed		= .51;
 			this.sheetname		= AssetNames.MARINE;
 			this.offsetX 		= -30;
 			this.offsetY		= -80;
@@ -19,10 +20,11 @@ package main.units
 			this.height			= AssetLibrary.getSheet( this.sheetname )[0].height;
 			this.totalFrames	= AssetLibrary.getSheet( this.sheetname ).length;
 			
-			addFrameAnimation( new FrameAnimation( 'onMoveStart', 1, 7 ) );
-			addFrameAnimation( new FrameAnimation( 'onMove', 8, 26, true ) );
-			addFrameAnimation( new FrameAnimation( 'onMoveEnd', 27, 37 ) );
-			onMoveStart();
+			addFrameAnimation( new FrameAnimation( 'onMoveStart', 1, 5 ) );
+			addFrameAnimation( new FrameAnimation( 'onMove', 6, 18, true ) );
+			addFrameAnimation( new FrameAnimation( 'onMoveEnd', 19, 25 ) );
+			addFrameAnimation( new FrameAnimation( 'onAttackStart', 26, 54 ) );
+			addFrameAnimation( new FrameAnimation( 'onGrenadeStart', 55, 87 ) );
 		}
 		
 		override protected function onMoveStart () : void
@@ -36,7 +38,8 @@ package main.units
 			super.onMoveEnd ();
 			setFrameAnimation('onMoveEnd');
 		}
-		/**/
+		
+
 		override protected function onAnimationEnd () : void
 		{
 			super.onAnimationEnd ();
@@ -53,11 +56,13 @@ package main.units
 					setFrameAnimation( null );
 					
 					break;
+				
 					
 				default:
 					
+				if ( !__currentFrameAnimation.loop )
+					setFrameAnimation( null );
 			}
 		}
-		/**/		
 	}
 }

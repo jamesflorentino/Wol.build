@@ -37,7 +37,7 @@ package main
 		
 		
 		
-		public function gotoHex ( hex : Hex ) : void
+		public function moveToHex ( hex : Hex ) : void
 		{
 			if (!hex)
 				throw new Error('Hex tile not found!');
@@ -93,8 +93,13 @@ package main
 			__startFrame		= __currentFrameAnimation.start;
 			__totalFrames		= __currentFrameAnimation.end;
 			__currentFrame		= __startFrame;
+			if ( flipped )
+			{
+				
+			}
 			__isAnimating		= true;
 		}
+		
 		
 		public function playAnimation( animation_name : String ) : void
 		{
