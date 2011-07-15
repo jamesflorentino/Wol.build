@@ -12,7 +12,6 @@ package main
 	 */
 	public class AbstractUnit extends DisplayElement
 	{
-		protected var __startFrame		: Number;
 		protected var __isAnimating		: Boolean;
 		private var __isWalking			: Boolean;
 		private var __currentWalktime	: Number;
@@ -35,7 +34,11 @@ package main
 			__framelabels	= new Dictionary;
 		}
 		
-		
+		override public function set flipped ( val : Boolean ) : void
+		{
+			super.flipped = val;
+			checkFlipped();
+		}
 		
 		public function moveToHex ( hex : Hex ) : void
 		{
@@ -84,20 +87,28 @@ package main
 			{
 				__currentFrame	= 0;
 				__startFrame	= 0;
-				__totalFrames	= 0;
+				__endFrame		= 0;
 				__isAnimating	= false;
+				checkFlipped();
 				return;
 			}
 			
 			__currentFrameAnimation	= getFrameAnimation(animation_name);
 			__startFrame		= __currentFrameAnimation.start;
-			__totalFrames		= __currentFrameAnimation.end;
+			__endFrame			= __currentFrameAnimation.end;
 			__currentFrame		= __startFrame;
+			__isAnimating		= true;
+			checkFlipped();
+		}
+		
+		protected function checkFlipped () : void
+		{
 			if ( flipped )
 			{
-				
+				__startFrame		+= (__totalFrames * .5);
+				__endFrame			+= (__totalFrames * .5);
+				__currentFrame		= __startFrame;
 			}
-			__isAnimating		= true;
 		}
 		
 		
@@ -141,7 +152,7 @@ package main
 			if( __isAnimating )
 			{
 				__currentFrame++;
-				if(__currentFrame  > __totalFrames )
+				if(__currentFrame  > __endFrame )
 				{
 					onAnimationEnd();
 					__currentFrame 	= __startFrame;

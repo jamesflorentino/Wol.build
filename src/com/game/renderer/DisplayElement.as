@@ -6,6 +6,11 @@ package com.game.renderer
 	
 	public class DisplayElement extends Entity
 	{
+		public function DisplayElement()
+		{
+			x = 0;
+			y = 0;
+		}
 		/**
 		 * sheet name of the entity
 		 */
@@ -38,6 +43,9 @@ package com.game.renderer
 		public function set height ( val : Number ) : void { __rect.bottom = val; }
 		public function set width ( val : Number ) : void { __rect.right = val; }
 		
+		/**
+		 * 
+		 */
 		protected var __flipped	: Boolean = false;
 		public function get flipped () : Boolean { return __flipped; }
 		public function set flipped ( val : Boolean ) : void 
@@ -46,13 +54,11 @@ package com.game.renderer
 		}
 		
 		
-		/**
-		 * x,y pos
-		 */
 		protected var __point			: Point = new Point; // original referenced position
-		protected var __position		: Point = new Point; // calcualted position
+		protected var __position_normal		: Point = new Point; // calcualted position
+		protected var __position_flipped	: Point = new Point; // calcualted position
 		
-		public function get position () : Point { return __position; }
+		public function get position () : Point { return flipped ? __position_flipped : __position_normal; }
 		public function get x		()	: Number 
 		{
 			return __point.x + __offset.x + ( __flipped ? - (__offset.x * 2) - width : 0 );
@@ -75,8 +81,11 @@ package com.game.renderer
 		
 		private function updatePos () : void
 		{
-			__position.x	= __point.x + __offset.x;	
-			__position.y	= __point.y + __offset.y;
+			__position_normal.x		= __point.x + __offset.x;	
+			__position_normal.y		= __point.y + __offset.y;
+			__position_flipped.x	= __point.x + __offset.x - width - ( __offset.x * 2 );	
+			__position_flipped.y	= __point.y + __offset.y;
+			
 		}
 		
 		/**
@@ -86,12 +95,18 @@ package com.game.renderer
 		public function get currentFrame () : uint { return __currentFrame; }
 		public function set currentFrame ( val : uint ) : void { __currentFrame = val ; }
 		
+		protected var __startFrame		: int = 0;
+		
+		protected var __totalFrames		: int = 0;
+		public function get totalFrames () : int { return __totalFrames; }
+		public function set totalFrames ( val : int ) : void { __totalFrames = val; }
+		
 		/**
 		 * total bitmapdata array
 		 */
-		protected var __totalFrames		: int = 0;
-		public function get totalFrames () : int { return __totalFrames; }
-		public function set totalFrames ( val:int ) : void { __totalFrames = val; }
+		protected var __endFrame		: int = 0;
+		public function get endFrame () : int { return __endFrame; }
+		public function set endFrame ( val:int ) : void { __endFrame = val; }
 		
 		public function update() : void 
 		{

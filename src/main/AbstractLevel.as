@@ -18,10 +18,13 @@ package main
 		
 		// temporary shit
 		[Embed(source="../../libs/bg.png")]
-		private var lib_bmp_bg : Class;
+		private var lib_bmp_bg 			: Class;
 		
 		[Embed(source="../../libs/hex_base.png")]
-		private var lib_bmp_hexbase	: Class;
+		private var lib_bmp_hexbase		: Class;
+
+		[Embed(source="../../libs/hex_base.png")]		
+		private var lib_bmp_terrain		: Class;
 		
 		public function AbstractLevel ( __width : Number = 500 , __height : Number = 300 , __fps : Number = 30 )
 		{
@@ -121,28 +124,16 @@ package main
 		{
 			
 			var unit		: AbstractUnit;
-			/**
-			unit			= GetUnitType.name ( AssetNames.OVERWATCH );
-			//unit.x			= Controller.getHexgrid( 3,1 ).centerX;
-			//unit.y			= Controller.getHexgrid( 3,1 ).centerY;
-			unit.gotoHex(Controller.getHexgrid( 3,1 ));
-			getLayer( 'units' ).addEntity( unit );
-			/**/
 			
-			/**/
+			unit			= GetUnitType.name ( AssetNames.MARINE );
+			unit.flipped 	= true;
+			unit.moveToHex(Controller.getHexgrid( 2, 2 ));
+			getLayer( 'units' ).addEntity( unit );
+			AbstractLevel.TEMPUNIT = unit;
+			
 			unit			= GetUnitType.name ( AssetNames.MARINE );
 			unit.moveToHex(Controller.getHexgrid( 2, 2 ));
-			unit.flipped = true;
 			getLayer( 'units' ).addEntity( unit );
-			AbstractLevel.TEMPUNIT = unit;
-			/**
-			
-			unit			= GetUnitType.name ( AssetNames.MARINE );
-			unit.gotoHex(Controller.getHexgrid( 2, 0 ));
-			unit.flipped = true;
-			getLayer( 'units' ).addEntity( unit );
-			AbstractLevel.TEMPUNIT = unit;
-			/**/
 			
 		}
 		
@@ -157,7 +148,7 @@ package main
 				unit.x = Math.random() * Game.WIDTH * .7;
 				unit.y = 10 + (Math.random() * 500);
 				unit.flipped = true;
-				unit.currentFrame = Math.round(Math.random() * unit.totalFrames);
+				unit.currentFrame = Math.round(Math.random() * unit.endFrame);
 				getLayer( 'units' ).addEntity( unit );
 			}
 			
@@ -167,7 +158,7 @@ package main
 				unit.x = 100 + (Math.random() * Game.WIDTH * .7 );
 				unit.y = 101 + (Math.random() * 500);
 				unit.flipped = true;
-				unit.currentFrame = Math.round(Math.random() * unit.totalFrames);
+				unit.currentFrame = Math.round(Math.random() * unit.endFrame);
 				getLayer( 'units' ).addEntity( unit );
 			}
 		}
@@ -179,7 +170,7 @@ package main
 			item 				= new DisplayElement ();
 			item.width			= AssetLibrary.getSheet( sheetname )[0].width;
 			item.height 		= AssetLibrary.getSheet( sheetname )[0].height;
-			item.totalFrames	= AssetLibrary.getSheet( sheetname ).length;
+			item.endFrame	= AssetLibrary.getSheet( sheetname ).length;
 			item.sheetname 			= sheetname;
 			
 			getLayer( layername ).addEntity( item );
