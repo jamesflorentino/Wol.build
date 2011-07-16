@@ -53,6 +53,7 @@ package com.game.renderer
 			__flipped = val;
 		}
 		
+		protected var __parentPoint		: Point	= new Point;
 		
 		protected var __point			: Point = new Point; // original referenced position
 		protected var __position_normal		: Point = new Point; // calcualted position
@@ -81,10 +82,10 @@ package com.game.renderer
 		
 		private function updatePos () : void
 		{
-			__position_normal.x		= __point.x + __offset.x;	
-			__position_normal.y		= __point.y + __offset.y;
-			__position_flipped.x	= __point.x + __offset.x - width - ( __offset.x * 2 );	
-			__position_flipped.y	= __point.y + __offset.y;
+			__position_normal.x		= __parentPoint.x + __point.x + __offset.x;	
+			__position_normal.y		= __parentPoint.y + __point.y + __offset.y;
+			__position_flipped.x	= __parentPoint.x + __point.x + __offset.x - width - ( __offset.x * 2 );	
+			__position_flipped.y	= __parentPoint.y + __point.y + __offset.y;
 			
 		}
 		
@@ -108,10 +109,14 @@ package com.game.renderer
 		public function get endFrame () : int { return __endFrame; }
 		public function set endFrame ( val:int ) : void { __endFrame = val; }
 		
-		public function update() : void 
+		public function updateParentPosition( parentX : Number , parentY : Number ) : void 
 		{
+			__parentPoint.x		= parentX;
+			__parentPoint.y		= parentY;
 		}
 		
-		
+		public function update () : void 
+		{
+		}
 	}
 }

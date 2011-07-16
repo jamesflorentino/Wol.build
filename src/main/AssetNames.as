@@ -8,6 +8,7 @@ package main
 		
 		// static stuff
 		public static const BACKGROUND	: String	= "background.main";
+		public static const TERRAIN	: String		= "terrain.main";
 		
 		// units
 		public static const MARINE_LEFT 		: String	= "unit.marine.left";

@@ -23,7 +23,7 @@ package main
 		[Embed(source="../../libs/hex_base.png")]
 		private var lib_bmp_hexbase		: Class;
 
-		[Embed(source="../../libs/hex_base.png")]		
+		[Embed(source="../../libs/terrain_bg.png")]		
 		private var lib_bmp_terrain		: Class;
 		
 		public function AbstractLevel ( __width : Number = 500 , __height : Number = 300 , __fps : Number = 30 )
@@ -34,22 +34,25 @@ package main
 
 		private function addedToStage ( event : Event ) : void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStage );
+			
 			Game.STAGE	= stage;
 			Game.STAGE.addEventListener(MouseEvent.CLICK, test );
 			
 			addLayer ( 'background' );
+			addLayer ( 'terrain' );
 			addLayer ( 'grid' );
 			addLayer ( 'units' );
 			
 			setAssets ();
 			
 			generateBackground ();
-			generateGrid ( 8, 11 );
-			//generateTestUnits (); 
+			generateGrid ( 8, 9 );
+			/** generateTestUnits (); **/ 
 			generateTestUnit();
 			
 			startRender ();
-			removeEventListener(Event.ADDED_TO_STAGE, addedToStage );
+			moveTerrain(100, 100);
 		}
 
 		private function test ( event : MouseEvent ) : void
@@ -60,23 +63,28 @@ package main
 		public function setAssets () : void
 		{			
 			
-			// clips
 			AssetLibrary.addClipAsset ( new lib_sprite_marine as MovieClip, AssetNames.MARINE );
 			AssetLibrary.addSheetByClip ( AssetNames.MARINE , AssetLibrary.getClipAsset( AssetNames.MARINE ), .5, true );
-			
 			
 			AssetLibrary.addBitmapAsset ( new lib_bmp_bg as Bitmap, AssetNames.BACKGROUND );
 			AssetLibrary.addStaticSheet ( AssetNames.BACKGROUND , AssetLibrary.getBitmapAsset( AssetNames.BACKGROUND ) );
 			
+			AssetLibrary.addBitmapAsset ( new lib_bmp_terrain as Bitmap, AssetNames.TERRAIN );
+			AssetLibrary.addStaticSheet ( AssetNames.TERRAIN , AssetLibrary.getBitmapAsset( AssetNames.TERRAIN ) );
 			 
 			AssetLibrary.addBitmapAsset ( new lib_bmp_hexbase as Bitmap, AssetNames.HEX_BASE ); 
 			AssetLibrary.addStaticSheet ( AssetNames.HEX_BASE, AssetLibrary.getBitmapAsset( AssetNames.HEX_BASE ) );
-			// static
-			
-			
-			
-			//
-			
+
+		}
+		
+		public function moveTerrain ( x : Number, y : Number ) : void
+		{
+			getLayer('terrain').x	= x;
+			getLayer('terrain').y	= y;
+		}
+		
+		public function setFilters () : void
+		{
 			var matrix : Array = [];
 			matrix = matrix.concat ( [ 1, 		0, 		0, 		0, 		0 ] ); // red
             matrix = matrix.concat ( [ 0.1, 	1, 		0, 		0, 		0 ] ); // green
@@ -84,6 +92,8 @@ package main
             matrix = matrix.concat ( [ 0, 		0, 		0, 		1, 		0 ] ); // alpha
             
 			getLayer ( 'units' ).filters.push ( new ColorMatrixFilter( matrix ) );
+			getLayer ( 'terrain' ).filters.push ( new ColorMatrixFilter( matrix ) );
+			getLayer ( 'background' ).filters.push ( new ColorMatrixFilter( matrix ) );
 		}
 
 		public function generateGrid ( columns : int, rows : int ) : void
@@ -116,6 +126,7 @@ package main
 		{
 			var item		: DisplayElement;
 			item			= addItem ( 'background' , AssetNames.BACKGROUND );
+			item			= addItem ( 'terrain' , AssetNames.TERRAIN );
 		}
 		
 		public static var TEMPUNIT : AbstractUnit;
@@ -170,8 +181,8 @@ package main
 			item 				= new DisplayElement ();
 			item.width			= AssetLibrary.getSheet( sheetname )[0].width;
 			item.height 		= AssetLibrary.getSheet( sheetname )[0].height;
-			item.endFrame	= AssetLibrary.getSheet( sheetname ).length;
-			item.sheetname 			= sheetname;
+			item.totalFrames	= AssetLibrary.getSheet( sheetname ).length;
+			item.sheetname 		= sheetname;
 			
 			getLayer( layername ).addEntity( item );
 			return item;

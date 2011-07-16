@@ -1,6 +1,5 @@
 package com.game.renderer
 {
-	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.filters.BitmapFilter;
 	import com.game.AssetLibrary;
@@ -22,10 +21,17 @@ package com.game.renderer
 		public function get filters () 		: Vector.<BitmapFilter> { return __filters; }
 		public function set filters ( val : Vector.<BitmapFilter> ) : void { __filters = val; }
 		
+		private var __position				: Point;
+		public function set x ( val : Number ) : void	{ __position.x = val; 	}
+		public function set y ( val : Number ) : void	{ __position.y = val; 	}
+		public function get x ()			: Number 	{ return __position.x; 	}
+		public function get y ()			: Number 	{ return __position.y; 	}
+		
 		public function get totalItems ()		: Number { return __children.length; }
 		
 		public function RenderLayer ( __width : uint, __height : uint )
 		{
+			__position		= new Point;
 			__filters		= new Vector.<BitmapFilter>;
 			__bitmapData 	= new BitmapData ( __width, __height, true, 0x00000000 );
 			__children		= new Vector.<DisplayElement>();
@@ -39,7 +45,6 @@ package com.game.renderer
 		
 		private var __child 	: DisplayElement;
 		private var i 			: uint;
-		private var matrix		: Matrix;
 		
 		public function render() : void
 		{
@@ -51,28 +56,18 @@ package com.game.renderer
 			for( i = 0 ; i < __children.length; i++ )
 			{
 				__child	= __children [ i ];
-				__child.update ();
+				__child.updateParentPosition(__position.x, __position.y);
+				__child.update();
 				
-				//if ( __child.flipped )
-				if ( 1 > 2 )
-				{
-					matrix	= new Matrix;
-					matrix.scale (-1, 1);
-					matrix.translate(__child.x + __child.width, __child.y);
-					__bitmapData.draw( AssetLibrary.getSheet ( __child.sheetname )[ __child.currentFrame ], matrix );
-				} 
-				else
-				{
-					__bitmapData.copyPixels 
-					( 
-						AssetLibrary.getSheet ( __child.sheetname )[ __child.currentFrame ],
-						__child.rect,
-						__child.position,
-						null,
-						null,
-						true
-					);
-				}
+				__bitmapData.copyPixels 
+				( 
+					AssetLibrary.getSheet ( __child.sheetname )[ __child.currentFrame ],
+					__child.rect,
+					__child.position,
+					null,
+					null,
+					true
+				);
 			}
 			renderFilters();
 			__bitmapData.unlock();
