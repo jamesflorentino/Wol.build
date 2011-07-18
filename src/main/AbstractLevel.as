@@ -52,12 +52,18 @@ package main
 			generateTestUnit();
 			
 			startRender ();
-			moveTerrain(100, 100);
+			moveTerrain(0 , Game.HEIGHT * .25);
 		}
 
+
+		private var __vector	: Number = 1;
 		private function test ( event : MouseEvent ) : void
 		{
-			TEMPUNIT.moveToHex(Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + 1));
+			if(!Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + __vector))
+				__vector *= -1;
+			//TEMPUNIT.moveToHex(Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + __vector));
+			//TEMPUNIT.playAnimation('onGrenadeStart');
+			TEMPUNIT.playAnimation('onAttackStart');
 		}
 		
 		public function setAssets () : void
@@ -79,8 +85,15 @@ package main
 		
 		public function moveTerrain ( x : Number, y : Number ) : void
 		{
-			getLayer('terrain').x	= x;
-			getLayer('terrain').y	= y;
+			getLayer('terrain').x	=
+			getLayer('grid').x		=
+			getLayer('units').x		= 
+			x;
+			
+			getLayer('terrain').y	=
+			getLayer('grid').y		=
+			getLayer('units').y		= 
+			y;
 		}
 		
 		public function setFilters () : void
@@ -142,10 +155,11 @@ package main
 			getLayer( 'units' ).addEntity( unit );
 			AbstractLevel.TEMPUNIT = unit;
 			
+			/**
 			unit			= GetUnitType.name ( AssetNames.MARINE );
 			unit.moveToHex(Controller.getHexgrid( 2, 2 ));
 			getLayer( 'units' ).addEntity( unit );
-			
+			/**/
 		}
 		
 		public function generateTestUnits () : void

@@ -29,8 +29,12 @@ package com.game.renderer
 		
 		public function get totalItems ()		: Number { return __children.length; }
 		
+		// arbitrary values
+		private var __returnpoint		: Point;
+		
 		public function RenderLayer ( __width : uint, __height : uint )
 		{
+			__returnpoint	= new Point;
 			__position		= new Point;
 			__filters		= new Vector.<BitmapFilter>;
 			__bitmapData 	= new BitmapData ( __width, __height, true, 0x00000000 );
@@ -49,21 +53,19 @@ package com.game.renderer
 		public function render() : void
 		{
 			
-			
-			__bitmapData.fillRect ( __bitmapData.rect, 0x00000000 );
 			__bitmapData.lock();
+			__bitmapData.fillRect ( __bitmapData.rect, 0x00000000 );
 			
 			for( i = 0 ; i < __children.length; i++ )
 			{
 				__child	= __children [ i ];
-				__child.updateParentPosition(__position.x, __position.y);
 				__child.update();
 				
 				__bitmapData.copyPixels 
 				( 
-					AssetLibrary.getSheet ( __child.sheetname )[ __child.currentFrame ],
+					AssetLibrary.getSheetByIndex(__child.sheetname, __child.currentFrame),
 					__child.rect,
-					__child.position,
+					getPosition(__child.position),
 					null,
 					null,
 					true
@@ -81,6 +83,13 @@ package com.game.renderer
 			{
 				__bitmapData.applyFilter( __bitmapData, __bitmapData.rect, __pt, __filters[i] );
 			}
+		}
+		
+		public function getPosition ( childPoint : Point ) : Point
+		{
+			__returnpoint.x		= __position.x + childPoint.x;
+			__returnpoint.y		= __position.y + childPoint.y;
+			return __returnpoint;
 		}
 	}
 }

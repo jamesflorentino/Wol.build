@@ -49,16 +49,14 @@ package com.game
 		
 		public static function getSheet ( sheetname:String ) : Vector.<BitmapData>
 		{
-			var 	v : Vector.<BitmapData>;
-			
-			v = __sheets [sheetname] as Vector.<BitmapData>;
-			
-			if( !v )
-			{
-				v = __sheets [ 'NULL' ] as Vector.<BitmapData>;
-			}
-			
-			return v;
+			if(!__sheets [sheetname] as Vector.<BitmapData>)
+				return __sheets [ 'NULL' ] as Vector.<BitmapData>;
+				return __sheets [ sheetname ] as Vector.<BitmapData>;
+		}
+		
+		public static function getSheetByIndex ( sheetname : String, index : int ) : BitmapData
+		{
+			return getSheet(sheetname)[index];
 		}
 		
 		public static function getAsset ( assetname : String ) : BitmapData

@@ -109,12 +109,6 @@ package com.game.renderer
 		public function get endFrame () : int { return __endFrame; }
 		public function set endFrame ( val:int ) : void { __endFrame = val; }
 		
-		public function updateParentPosition( parentX : Number , parentY : Number ) : void 
-		{
-			__parentPoint.x		= parentX;
-			__parentPoint.y		= parentY;
-		}
-		
 		public function update () : void 
 		{
 		}
