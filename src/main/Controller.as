@@ -1,5 +1,6 @@
 package main
 {
+	import flash.events.Event;
 	import main.hex.Hex;
 	import flash.utils.Dictionary;
 	/**
@@ -7,7 +8,12 @@ package main
 	 */
 	public class Controller
 	{
+		private static var keyBindings		: Array;
 		
+		public static function addKeyBind ( key : String, eventCallback : Event ) : void
+		{
+			
+		}
 		private static var __grid		: Dictionary;
 		public static function get grid () : Dictionary 
 		{

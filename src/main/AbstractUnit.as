@@ -50,7 +50,8 @@ package main
 				if( __currentHex && __currentHex != __targetHex )
 				{
 					__currentWalktime	= 0;
-					__isWalking 	= true;
+					__isWalking 		= true;
+					flipped 			= __currentHex.x > __targetHex.x;
 					onMoveStart();
 				}
 				else

@@ -35,7 +35,7 @@ package main
 		private function addedToStage ( event : Event ) : void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStage );
-			
+			Controller
 			Game.STAGE	= stage;
 			Game.STAGE.addEventListener(MouseEvent.CLICK, test );
 			
@@ -54,10 +54,13 @@ package main
 			moveTerrain(0 , Game.HEIGHT * .25);
 		}
 
-
+		private var __tempvector : Number = 1;
 		private function test ( event : MouseEvent ) : void
 		{
-			TEMPUNIT.playAnimation('onGrenadeStart');
+			if (!Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + __tempvector))
+				__tempvector *= -1;
+			//TEMPUNIT.playAnimation('onGrenadeStart');
+			TEMPUNIT.moveToHex(Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + __tempvector ));
 		}
 		
 		public function setAssets () : void
@@ -149,9 +152,9 @@ package main
 			getLayer( 'units' ).addEntity( unit );
 			AbstractLevel.TEMPUNIT = unit;
 			
-			/**
+			/**/
 			unit			= GetUnitType.name ( AssetNames.MARINE );
-			unit.moveToHex(Controller.getHexgrid( 2, 2 ));
+			unit.moveToHex(Controller.getHexgrid( 3, 2 ));
 			getLayer( 'units' ).addEntity( unit );
 			/**/
 		}
