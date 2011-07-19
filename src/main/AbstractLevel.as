@@ -48,7 +48,6 @@ package main
 			
 			generateBackground ();
 			generateGrid ( 8, 9 );
-			/** generateTestUnits (); **/ 
 			generateTestUnit();
 			
 			startRender ();
@@ -56,14 +55,9 @@ package main
 		}
 
 
-		private var __vector	: Number = 1;
 		private function test ( event : MouseEvent ) : void
 		{
-			if(!Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + __vector))
-				__vector *= -1;
-			//TEMPUNIT.moveToHex(Controller.getHexgrid(TEMPUNIT.hex.cellX, TEMPUNIT.hex.cellY + __vector));
-			//TEMPUNIT.playAnimation('onGrenadeStart');
-			TEMPUNIT.playAnimation('onAttackStart');
+			TEMPUNIT.playAnimation('onGrenadeStart');
 		}
 		
 		public function setAssets () : void
@@ -162,32 +156,6 @@ package main
 			/**/
 		}
 		
-		public function generateTestUnits () : void
-		{
-			var i 		: uint;
-			var unit	: AbstractUnit;
-			
-			for( i = 0; i < 40; i++ )
-			{
-				unit = GetUnitType.name ( AssetNames.OVERWATCH );
-				unit.x = Math.random() * Game.WIDTH * .7;
-				unit.y = 10 + (Math.random() * 500);
-				unit.flipped = true;
-				unit.currentFrame = Math.round(Math.random() * unit.endFrame);
-				getLayer( 'units' ).addEntity( unit );
-			}
-			
-			for( i = 0; i < 30; i++ )
-			{
-				unit = GetUnitType.name( AssetNames.INFILTRATOR );
-				unit.x = 100 + (Math.random() * Game.WIDTH * .7 );
-				unit.y = 101 + (Math.random() * 500);
-				unit.flipped = true;
-				unit.currentFrame = Math.round(Math.random() * unit.endFrame);
-				getLayer( 'units' ).addEntity( unit );
-			}
-		}
-
 		public function addItem ( layername : String, sheetname : String ) : DisplayElement
 		{
 			
