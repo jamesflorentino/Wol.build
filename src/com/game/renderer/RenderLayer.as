@@ -2,7 +2,6 @@ package com.game.renderer
 {
 	import flash.geom.Point;
 	import flash.filters.BitmapFilter;
-	import com.game.AssetLibrary;
 	import com.game.core.Entity;
 	import flash.display.BitmapData;
 	/**
