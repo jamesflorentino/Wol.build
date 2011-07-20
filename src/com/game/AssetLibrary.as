@@ -54,7 +54,7 @@ package com.game
 				return __sheets [ sheetname ] as Vector.<BitmapData>;
 		}
 		
-		public static function getSheetByIndex ( sheetname : String, index : int ) : BitmapData
+		public static function getSheetByIndex ( sheetname : String, index : int = 0 ) : BitmapData
 		{
 			return getSheet(sheetname)[index];
 		}

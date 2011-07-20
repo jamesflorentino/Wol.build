@@ -23,7 +23,7 @@ package main.units
 			addFrameAnimation( new FrameAnimation( 'onMoveStart', 1, 5 ) );
 			addFrameAnimation( new FrameAnimation( 'onMove', 6, 18, true ) );
 			addFrameAnimation( new FrameAnimation( 'onMoveEnd', 19, 25 ) );
-			addFrameAnimation( new FrameAnimation( 'onAttackStart', 26, 54 ) );
+			addFrameAnimation( new FrameAnimation( 'onAttackStart', 26, 54, true ) );
 			addFrameAnimation( new FrameAnimation( 'onGrenadeStart', 55, 87 ) );
 		}
 		

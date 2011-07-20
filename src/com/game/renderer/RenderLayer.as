@@ -60,10 +60,10 @@ package com.game.renderer
 			{
 				__child	= __children [ i ];
 				__child.update();
-				
 				__bitmapData.copyPixels 
 				( 
-					AssetLibrary.getSheetByIndex(__child.sheetname, __child.currentFrame),
+					//AssetLibrary.getSheetByIndex(__child.sheetname, __child.currentFrame),
+					__child.bitmapData,
 					__child.rect,
 					getPosition(__child.position),
 					null,
@@ -74,7 +74,7 @@ package com.game.renderer
 			renderFilters();
 			__bitmapData.unlock();
 		}
-		
+
 		private var __pt 	: Point = new Point;
 		public function renderFilters () : void
 		{

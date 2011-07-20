@@ -35,7 +35,6 @@ package main
 		private function addedToStage ( event : Event ) : void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStage );
-			Controller
 			Game.STAGE	= stage;
 			Game.STAGE.addEventListener(MouseEvent.CLICK, test );
 			
@@ -146,17 +145,34 @@ package main
 			
 			var unit		: AbstractUnit;
 			
+			/**
 			unit			= GetUnitType.name ( AssetNames.MARINE );
 			unit.flipped 	= true;
 			unit.moveToHex(Controller.getHexgrid( 2, 2 ));
 			getLayer( 'units' ).addEntity( unit );
 			AbstractLevel.TEMPUNIT = unit;
 			
-			/**/
+			/**
 			unit			= GetUnitType.name ( AssetNames.MARINE );
 			unit.moveToHex(Controller.getHexgrid( 3, 2 ));
 			getLayer( 'units' ).addEntity( unit );
 			/**/
+			
+			for ( var j : * in Controller.grid )
+			{
+				unit			= GetUnitType.name ( AssetNames.MARINE );
+				unit.name		= 'unit_' + (Controller.grid[j] as Hex).cellX + "_" + (Controller.grid[j] as Hex).cellY;
+				Controller.units[unit.name]	= unit;
+				unit.flipped 	= true;
+				unit.moveToHex( Controller.grid[j] as Hex);
+				unit.playAnimation('onAttackStart');
+				unit.currentFrame += int(Math.random() * 15);
+				trace(unit.currentFrame);
+				getLayer( 'units' ).addEntity( unit );
+			}
+			
+			AbstractLevel.TEMPUNIT	= Controller.units['unit_4_4'] as AbstractUnit;
+			
 		}
 		
 		public function addItem ( layername : String, sheetname : String ) : DisplayElement

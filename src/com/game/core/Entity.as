@@ -6,11 +6,17 @@ package com.game.core
 	 */
 	public class Entity 
 	{
-		
-		protected var __name			: String;
-		public function get name () : String { return __name; }
-		public function set name ( val : String ) : void { __name = val; }
-		
+		protected var __name : String;
+
+		public function get name () : String
+		{
+			return __name;
+		}
+
+		public function set name ( _name : String ) : void
+		{
+			__name = _name;
+		}		
 		
 	}
 

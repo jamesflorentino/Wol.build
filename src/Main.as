@@ -23,11 +23,11 @@ package
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			build();
+			buildIntro();
 			
 		}
 		
-		private function build () : void
+		private function buildIntro () : void
 		{
 			addChild( new AbstractLevel ( 800, 700,  30 ) );
 			addChild( new Stats() );

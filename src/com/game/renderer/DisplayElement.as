@@ -1,5 +1,7 @@
 package com.game.renderer
 {
+	import com.game.AssetLibrary;
+	import flash.display.BitmapData;
 	import com.game.core.Entity;
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
@@ -14,10 +16,22 @@ package com.game.renderer
 		/**
 		 * sheet name of the entity
 		 */
-		protected var __sheet	: String;
-		public function get sheetname () : String 	{ return __sheet; }
-		public function set sheetname ( val:String ) : void		{ __sheet = val; } 
-		
+		protected var _sheetname	: String; 
+		public function get sheetname () : String
+		{
+			return _sheetname;
+		}
+
+		public function set sheetname ( sheet : String ) : void
+		{
+			_sheetname = sheet;
+			if(AssetLibrary.getSheetByIndex(sheetname))
+			{
+				width	= AssetLibrary.getSheetByIndex(sheetname).width;
+				height	= AssetLibrary.getSheetByIndex(sheetname).height;
+				bitmapData	= new BitmapData(width, height, true, 0x00ffffff );
+			}
+		}
 		/**
 		 * the arbitrary offset value for the entity's center point
 		 */
@@ -92,6 +106,10 @@ package com.game.renderer
 		/**
 		 * current bitmapdata to display in the Vector array
 		 */
+		 
+		
+		 
+		
 		protected var __currentFrame	: uint = 0;
 		public function get currentFrame () : uint { return __currentFrame; }
 		public function set currentFrame ( val : uint ) : void { __currentFrame = val ; }
@@ -109,8 +127,27 @@ package com.game.renderer
 		public function get endFrame () : int { return __endFrame; }
 		public function set endFrame ( val:int ) : void { __endFrame = val; }
 		
+		private var _pt	: Point	= new Point;
 		public function update () : void 
 		{
+			bitmapData.lock();
+			bitmapData.fillRect(this.rect, 0x00ffffff );
+			bitmapData.copyPixels(AssetLibrary.getSheetByIndex(this.sheetname, this.currentFrame), this.rect, _pt, null, null, true);
+			bitmapData.unlock();
 		}
+		
+		protected var _bitmapData		: BitmapData = new BitmapData(1, 1);
+		public function get bitmapData () : BitmapData
+		{
+			return _bitmapData;
+		}
+		public function set bitmapData ( bitmapData : BitmapData ) : void
+		{
+			_bitmapData = bitmapData;
+		}
+
+		
+
+		
 	}
 }
