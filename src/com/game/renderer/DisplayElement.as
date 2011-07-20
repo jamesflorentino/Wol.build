@@ -1,5 +1,6 @@
 package com.game.renderer
 {
+	import flash.filters.BitmapFilter;
 	import com.game.AssetLibrary;
 	import flash.display.BitmapData;
 	import com.game.core.Entity;
@@ -127,13 +128,29 @@ package com.game.renderer
 		public function get endFrame () : int { return __endFrame; }
 		public function set endFrame ( val:int ) : void { __endFrame = val; }
 		
+		// a static point value
 		private var _pt	: Point	= new Point;
 		public function update () : void 
+		{
+			render();
+		}
+		
+		private function render () : void
 		{
 			bitmapData.lock();
 			bitmapData.fillRect(this.rect, 0x00ffffff );
 			bitmapData.copyPixels(AssetLibrary.getSheetByIndex(this.sheetname, this.currentFrame), this.rect, _pt, null, null, true);
+			renderFilters();
 			bitmapData.unlock();
+		}
+		
+		private function renderFilters () : void
+		{
+			for( var i : uint = 0 ; i < filters.length ; i++ )
+			{
+				var filter : BitmapFilter	= filters[i];
+				bitmapData.applyFilter ( bitmapData , this.rect , _pt , filter );
+			}
 		}
 		
 		protected var _bitmapData		: BitmapData = new BitmapData(1, 1);
@@ -145,9 +162,26 @@ package com.game.renderer
 		{
 			_bitmapData = bitmapData;
 		}
-
 		
-
+		protected var _filters : Vector.<BitmapFilter> = new Vector.<BitmapFilter>;
+		public function get filters () : Vector.<BitmapFilter>
+		{
+			return _filters;
+		}
+		public function set filters ( filters : Vector.<BitmapFilter> ) : void
+		{
+			_filters = filters;
+		}
+		
+		public function applyFilter ( filter : BitmapFilter ) : void
+		{
+			filters.push(filter);
+		}
+		
+		public function removeFilters () : void
+		{
+			filters	= new Vector.<BitmapFilter>;
+		}
 		
 	}
 }

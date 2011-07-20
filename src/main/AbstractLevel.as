@@ -1,5 +1,6 @@
 package main
 {
+	import com.game.renderer.Filters;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import main.utils.GetUnitType;
@@ -17,10 +18,11 @@ package main
 	{
 		
 		// temporary shit
-		[Embed(source="../../libs/bg.png")]
+		[Embed(source="../../libs/bg_green.png")]
 		private var lib_bmp_bg 			: Class;
 		
-		[Embed(source="../../libs/hex_base.png")]
+		//[Embed(source="../../libs/hex_base.png")]
+		[Embed(source="../../libs/hex_base_lighter.png")]
 		private var lib_bmp_hexbase		: Class;
 
 		[Embed(source="../../libs/terrain_bg.png")]		
@@ -164,10 +166,15 @@ package main
 				unit.name		= 'unit_' + (Controller.grid[j] as Hex).cellX + "_" + (Controller.grid[j] as Hex).cellY;
 				Controller.units[unit.name]	= unit;
 				unit.flipped 	= true;
+				if (Math.random() > .5)
+				{
+					unit.applyFilter(Filters.stealth);
+					unit.applyFilter(Filters.stealth_innerglow);
+					unit.applyFilter(Filters.transparent);
+				}
 				unit.moveToHex( Controller.grid[j] as Hex);
 				unit.playAnimation('onAttackStart');
 				unit.currentFrame += int(Math.random() * 15);
-				trace(unit.currentFrame);
 				getLayer( 'units' ).addEntity( unit );
 			}
 			
