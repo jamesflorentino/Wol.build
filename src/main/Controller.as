@@ -19,7 +19,7 @@ package main
 			if(!__keys)
 			{
 				__keys	= new Vector.<KeyBind>;
-				Game.STAGE.addEventListener( KeyboardEvent.KEY_UP, onKeyPress ); 
+				Game.STAGE.addEventListener( KeyboardEvent.KEY_DOWN, onKeyPress ); 
 			}
 			
 			__keys.push(new KeyBind(name, key, callback));
@@ -27,6 +27,11 @@ package main
 
 		private static function onKeyPress ( event : KeyboardEvent ) : void
 		{
+			trace("keyDownHandler: " + event.keyCode);
+            trace("ctrlKey: " + event.ctrlKey);
+            trace("keyLocation: " + event.keyLocation);
+            trace("shiftKey: " + event.shiftKey);
+            trace("altKey: " + event.altKey);
 		}
 		
 		

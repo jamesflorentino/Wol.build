@@ -37,8 +37,10 @@ package main
 		private function addedToStage ( event : Event ) : void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStage );
+			
 			Game.STAGE	= stage;
 			Game.STAGE.addEventListener(MouseEvent.CLICK, test );
+			Controller.addKeyBind('DESTROY', 'fuck you', offsetTerrain);
 			
 			addLayer ( 'background' );
 			addLayer ( 'terrain' );
@@ -53,6 +55,11 @@ package main
 			
 			startRender ();
 			moveTerrain(0 , Game.HEIGHT * .25);
+		}
+
+		private function offsetTerrain () : void
+		{
+			
 		}
 
 		private var __tempvector : Number = 1;
@@ -168,7 +175,7 @@ package main
 				unit.flipped 	= true;
 				if (Math.random() > .5)
 				{
-					unit.applyFilter(Filters.stealth);
+					//unit.applyFilter(Filters.stealth);
 					unit.applyFilter(Filters.stealth_innerglow);
 					unit.applyFilter(Filters.transparent);
 				}
